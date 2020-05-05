@@ -10,4 +10,9 @@ class JenkinsDemoApplicationTests {
   void contextLoads() {
   }
 
+  @Test
+  void failTest() {
+    throw new RuntimeException();
+  }
+
 }
