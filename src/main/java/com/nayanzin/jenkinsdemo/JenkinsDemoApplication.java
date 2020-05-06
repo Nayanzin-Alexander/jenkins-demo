@@ -7,6 +7,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * Entry point to the application.
+ */
 @SpringBootApplication
 public class JenkinsDemoApplication {
 
@@ -16,8 +19,13 @@ public class JenkinsDemoApplication {
         SpringApplication.run(JenkinsDemoApplication.class, args);
     }
 
+    /**
+     * Logs "Hello world!!!" with "info" severity.
+     *
+     * @return Command Line Runner
+     */
     @Bean
-    public CommandLineRunner printHelloWorld() {
+    public CommandLineRunner logHelloWorld() {
         return args -> log.info("Hello World!!!");
     }
 }
