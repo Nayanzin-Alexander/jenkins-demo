@@ -5,3 +5,6 @@ Reading the book "Jenkins The Definitive Guide" reading progress tracking
 
 Getting started with jenkins pipeline
 https://www.jenkins.io/doc/book/pipeline/getting-started/
+
+Declarative pipeline for maven projects
+https://www.jenkins.io/blog/2017/02/07/declarative-maven-project/
