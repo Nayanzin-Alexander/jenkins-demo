@@ -1,21 +1,30 @@
 #!/usr/bin/env groovy
-
 pipeline {
     agent any
+    parameters {
+        string(name: 'Greeting', defaultValue: 'Hello', description: 'How should I greet the world')
+    }
     environment {
-        OUPUT_PATH = './outputs/'
+        NEXUS_CREDENTIALS = credentials('NEXUS_CREDENTIALS')
     }
     stages {
+        stage('Examples') {
+            steps {
+                echo "${params.Greeting} World!!!"
+                echo "NEXUS_CREDENTIALS_USR = ${env.NEXUS_CREDENTIALS_USR}"
+                echo "NEXUS_CREDENTIALS_PSW = ${env.NEXUS_CREDENTIALS_PSW}"
+            }
+        }
         stage('Initialize') {
             steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
                 sh '''
                     echo "PATH = ${PATH}"
                     echo "M2_HOME = ${M2_HOME}"
-                    echo "pwd = ${pwd}"
+                    pwd
                 '''
             }
         }
-
         stage('Build') {
             steps {
                 echo 'Building..'
@@ -27,16 +36,20 @@ pipeline {
             steps {
                 echo 'Testing..'
                 sh 'mvn test'
-                junit 'target/surefire-reports/**/*.xml'
             }
         }
-//        stage('Deploy') {
-//            when {
-//                branch 'pipeline'
-//            }
-//            steps {
-//                echo 'Deploying..'
-//            }
-//        }
+        stage('Deploy') {
+            when {
+                branch 'pipeline'
+            }
+            steps {
+                echo 'Deploying..'
+            }
+        }
+    }
+    post {
+        always {
+            junit 'target/surefire-reports/**/*.xml'
+        }
     }
 }
