@@ -8,6 +8,14 @@ pipeline {
         NEXUS_CREDENTIALS = credentials('NEXUS_CREDENTIALS')
     }
     stages {
+        stage ('Docker Example') {
+            agent {
+                docker { image 'node:7-alpine' }
+            }
+            steps {
+                sh 'node --version'
+            }
+        }
         stage('Examples') {
             steps {
                 echo "${params.Greeting} World!!!"
@@ -30,6 +38,7 @@ pipeline {
                 echo 'Building..'
                 sh 'mvn package -DskipTests'
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                sh 'mvn javadoc:javadoc'
             }
         }
         stage('Test') {
@@ -39,17 +48,23 @@ pipeline {
             }
         }
         stage('Deploy') {
-            when {
-                branch 'pipeline'
-            }
             steps {
                 echo 'Deploying..'
+
+                script {
+//                    docker.withRegistry('https://localhost:nexus-port', 'credentials-id') {
+                    def dockerImage= docker.build("jenkins-demo:${env.BUILD_ID}")
+//                    dockerImage.push()
+                }
             }
         }
     }
     post {
         always {
             junit 'target/surefire-reports/**/*.xml'
+            jacoco (execPattern: 'target/*exec')
+            step([$class: 'JavadocArchiver',
+             javadocDir: 'target/site/apidocs'])
         }
     }
 }

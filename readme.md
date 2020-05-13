@@ -9,3 +9,10 @@ https://www.jenkins.io/doc/book/pipeline/getting-started/
 Declarative pipeline for maven projects
 https://www.jenkins.io/blog/2017/02/07/declarative-maven-project/
 https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#handling-credentials
+https://www.jenkins.io/doc/book/pipeline/syntax/
+
+Spring boot with docker
+https://spring.io/guides/gs/spring-boot-docker/
+
+JaCoCo plugin    
+https://www.jenkins.io/doc/pipeline/steps/jacoco/
