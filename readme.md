@@ -16,3 +16,9 @@ https://spring.io/guides/gs/spring-boot-docker/
 
 JaCoCo plugin    
 https://www.jenkins.io/doc/pipeline/steps/jacoco/
+
+Latest spring-boot guide
+https://spring.io/guides/gs/spring-boot/
+
+Documenting spring-boot rest   
+https://www.baeldung.com/spring-rest-openapi-documentation

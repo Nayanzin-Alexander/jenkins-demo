@@ -1,10 +1,10 @@
 package com.nayanzin.jenkinsdemo.dto;
 
-import static java.text.MessageFormat.format;
-
+import javax.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Data
 public class GreetingsDto {
+    @NotEmpty
     private String greeting;
 }
